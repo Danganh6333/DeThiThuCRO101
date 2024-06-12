@@ -6,17 +6,19 @@ const Main = () => {
   const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
   const [id, setId] = useState("")
-  const [name, setName] = useState("")
-  const [image, setImage] = useState("")
-  const [status, setStatus] = useState("")
-  const [gender, setGender] = useState("")
-  const [addName, setAddName] = useState("")
-  const [addImage, setAddImage] = useState("")
-  const [addStatus, setAddStatus] = useState(true)
-  const [addGender, setAddGender] = useState("")
+  const [hoTen, setHoTen] = useState("")
+  const [hinhAnh, setHinhAnh] = useState("")
+  const [hopDong, setHopDong] = useState("")
+  const [gioiTinh, setGioiTinh] = useState("")
+  const [ngaySinh, setNgaySinh] = useState("")
+  const [addHoTen, setAddHoTen] = useState("")
+  const [addHinhAnh, setAddHinhAnh] = useState("")
+  const [addHopDong, setAddHopDong] = useState(true)
+  const [addGioiTinh, setAddGioiTinh] = useState("")
+  const [AddNgaySinh, setAddNgaySinh] = useState("")
   const fetchData = async () => {
     try {
-      const retrieve = await fetch("http://10.24.9.95:3000/job/")
+      const retrieve = await fetch("http://192.168.0.101:3000/job/")
       const json = await retrieve.json()
       setData(json)
     } catch (error) {
@@ -31,26 +33,38 @@ const Main = () => {
   const showDetail = (item) => {
     setShowModal(true)
     setId(item.ID_PH33497)
-    setName(item.Name_PH33497)
-    setImage(item.Image_PH33497)
-    setStatus(item.Job_Status_PH333497)
-    setGender(item.Gender_PH33497)
+    setHoTen(item.hoTen_PH33497)
+    setHinhAnh(item.hinhAnh_PH33497)
+    setHopDong(item.hopDong_PH333497)
+    setNgaySinh(item.ngaySinh_PH333497)
+    setGioiTinh(item.gioiTinh_PH33497)
   }
 
   const addData = async () => {
-    if (addGender != "Nam" && addGender != "Nữ") {
+    if (addGioiTinh != "Nam" && addGioiTinh != "Nữ") {
       Alert.alert("Giới tính phải là nam và nữ")
       return
     }
-    let obj = {
-      ID_PH33497: Math.random(),
-      Name_PH33497: addName,
-      Image_PH33497: addImage,
-      Job_Status_PH333497: addStatus,
-      Gender_PH33497: addGender,
+    if(addHoTen == "" || addHoTen == "" || AddNgaySinh == ""){
+      Alert.alert('Thông Tin Rỗng')
+      return
+    }
+    const datePattern = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/
+    if (!datePattern.test(AddNgaySinh)) {
+      Alert.alert('Ngày sinh phải có định dạng dd/mm/yyyy')
+      return
     }
 
-    fetch("http://10.24.9.95:3000/job/", {
+    let obj = {
+      Id_PH33497: Math.random(),
+      hoTen_PH33497: addHoTen,
+      ngaySinh_PH333497:AddNgaySinh,
+      hinhAnh_PH33497: addHinhAnh,
+      hopDong_PH333497: addHopDong,
+      gioiTinh_PH33497: addGioiTinh,
+    }
+
+    fetch("http://192.168.0.101:3000/job/", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -62,9 +76,10 @@ const Main = () => {
         if (res.ok) {
           Alert.alert("Thêm thành công");
           setShowAddModal(false)
-          setAddGender("")
-          setAddImage("")
-          setAddName("")
+          setAddGioiTinh("")
+          setAddHinhAnh("")
+          setAddHoTen("")
+          setAddNgaySinh("")
           fetchData()
         }
       })
@@ -74,7 +89,7 @@ const Main = () => {
   }
 
   const deleteData = async (itemId) => {
-    fetch(`http://10.24.9.95:3000/job/` + itemId, {
+    fetch(`http://192.168.0.101:3000/job/` + itemId, {
       method: "DELETE",
     }).then((result) => {
       if (result.status == 200) {
@@ -93,7 +108,7 @@ const Main = () => {
       <SafeAreaView style={{ flex: 1 }}>
         <FlatList
           data={data}
-          keyExtractor={(item) => item.ID_PH33497}
+          keyExtractor={(item) => item.Id_PH33497}
           contentContainerStyle={{ paddingHorizontal: 12, paddingVertical: 12 }}
           renderItem={({ item }) => {
             return (
@@ -108,7 +123,7 @@ const Main = () => {
                 }}
                 onPress={() => showDetail(item)}
               >
-                <Image source={{ uri: item.Image_PH33497 }}
+                <Image source={{ uri: item.hinhAnh_PH33497 }}
                   style={{
                     width: 50,
                     height: 50,
@@ -116,14 +131,14 @@ const Main = () => {
                     borderRadius: 25
                   }} />
                 <View style={styles.textContainer}>
-                  <Text style={styles.text}>Id: {item.ID_PH33497}</Text>
-                  <Text style={styles.text}>Họ Tên: {item.Name_PH33497}</Text>
-                  <Text style={styles.text}>Giới Tính: {item.Gender_PH33497}</Text>
-                  <Text style={styles.text}>Trạng Thái: {item.Job_Status_PH333497 ? "Thử Việc" : "Chính Thức"}</Text>
+                  <Text style={styles.text}>Id: {item.Id_PH33497}</Text>
+                  <Text style={styles.text}>Họ Tên: {item.hoTen_PH33497}</Text>
+                  <Text style={styles.text}>Giới Tính: {item.gioiTinh_PH33497}</Text>
+                  <Text style={styles.text}>Ngày Sinh: {item.ngaySinh_PH333497}</Text>
+                  <Text style={styles.text}>Trạng Thái: {item.hopDong_PH333497 ? "Thử Việc" : "Chính Thức"}</Text>
                 </View>
                 <View style={{ flexDirection: 'column', gap: 20 }}>
                   <Button onPress={() => deleteData(item.id)} title='Xóa' />
-                  <Button onPress={() => deleteData(item.id)} title='Cập Nhật' />
                 </View>
 
               </TouchableOpacity>
@@ -134,11 +149,12 @@ const Main = () => {
       <Modal visible={showModal} transparent>
         <View style={styles.modalBackground}>
           <View style={styles.modalContainer}>
-            <Image source={{ uri: image }} style={styles.modalImage} />
+            <Image source={{ uri: hinhAnh }} style={styles.modalImage} />
             <Text style={styles.modalText}>Id : {id}</Text>
-            <Text style={styles.modalText}>Họ và tên :{name}</Text>
-            <Text style={styles.modalText}>Giới Tính :{gender}</Text>
-            <Text style={styles.modalText}>Trạng Thái :{status ? "Chính Thức" : "Thử việc"}</Text>
+            <Text style={styles.modalText}>Họ và tên :{hoTen}</Text>
+            <Text style={styles.modalText}>Giới Tính :{gioiTinh}</Text>
+            <Text style={styles.modalText}>Ngày Sinh :{ngaySinh}</Text>
+            <Text style={styles.modalText}>Trạng Thái :{hopDong ? "Chính Thức" : "Thử việc"}</Text>
             <Button onPress={() => setShowModal(false)} title='Tắt' />
           </View>
         </View>
@@ -148,35 +164,42 @@ const Main = () => {
           <View style={styles.modalContainer}>
             <TextInput
               placeholder="Họ và Tên"
-              value={addName}
-              onChangeText={setAddName}
+              value={addHoTen}
+              onChangeText={setAddHoTen}
               style={styles.input}
             />
             <TextInput
               placeholder="URL"
-              value={addImage}
-              onChangeText={setAddImage}
+              value={addHinhAnh}
+              onChangeText={setAddHinhAnh}
               style={styles.input}
             />
          
             <TextInput
               placeholder="Giới Tính"
-              value={addGender}
-              onChangeText={setAddGender}
+              value={addGioiTinh}
+              onChangeText={setAddGioiTinh}
+              style={styles.input}
+            />   
+               <TextInput
+              placeholder="Ngày Sinh"
+              value={AddNgaySinh}
+              onChangeText={setAddNgaySinh}
               style={styles.input}
             />   
             <Switch
               trackColor={{ false: '#767577', true: '#81b0ff' }}
-              thumbColor={addStatus ? '#f5dd4b' : '#f4f3f4'}
-              onValueChange={() => setAddStatus(!addStatus)}
-              value={addStatus}
+              thumbColor={addHopDong ? '#f5dd4b' : '#f4f3f4'}
+              onValueChange={() => setAddHopDong(!addHopDong)}
+              value={addHopDong}
             />
             <Button title="Thêm" onPress={addData} style={{ marginBottom: 5 }} />
             <Button title="Hủy" onPress={() => {
               setShowAddModal(false)
-              setAddGender("")
-              setAddImage("")
-              setAddName("")
+              setAddGioiTinh("")
+              setAddHinhAnh("")
+              setAddHoTen("")
+              setAddNgaySinh("")
             }} />
           </View>
         </View>

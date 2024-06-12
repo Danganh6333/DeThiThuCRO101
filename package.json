@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "server": "json-server --host 10.24.9.95 --port 3000 --watch data.json"
+    "server": "json-server --host 192.168.0.101 --port 3000 --watch data.json"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.17",
