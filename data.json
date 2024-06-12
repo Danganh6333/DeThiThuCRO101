@@ -1,0 +1,28 @@
+{
+  "job": [
+    {
+      "ID_PH33497": "6",
+      "Name_PH33497": "Job 6",
+      "Gender_PH33497": "Female",
+      "Image_PH33497": "https://picsum.photos/200/300",
+      "Job_Status": true,
+      "id": "f2a9"
+    },
+    {
+      "id": "70d5",
+      "ID_PH33497": 0.6184717392782604,
+      "Name_PH33497": "Gamer",
+      "Image_PH33497": "https://picsum.photos/200/300",
+      "Job_Status_PH333497": true,
+      "Gender_PH33497": "Nữ"
+    },
+    {
+      "id": "d0f2",
+      "ID_PH33497": 0.6322145120587973,
+      "Name_PH33497": "Yo",
+      "Image_PH33497": "https://picsum.photos/200/300",
+      "Job_Status_PH333497": true,
+      "Gender_PH33497": "Nữ"
+    }
+  ]
+}
