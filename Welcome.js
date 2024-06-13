@@ -13,8 +13,8 @@ const Welcome = () => {
   return (
     <View style={{flex:1,justifyContent:'center',alignItems:"center",flexDirection:'column'}}>
       <Image source={require("./logo.png")} style={{resizeMode:'center',width:'100%',height:190}}/>
-      <Text style={{fontSize:20}}>Cao Hải Đăng</Text>
-      <Text style={{fontSize:20,color:"red"}}>MSSV:PH33497</Text>
+      <Text style={{fontSize:20}}>Lê Quang Sang</Text>
+      <Text style={{fontSize:20,color:"red"}}>MSSV:PH44215</Text>
     </View>
   )
 }

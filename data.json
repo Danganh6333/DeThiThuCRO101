@@ -1,13 +1,12 @@
 {
   "job": [
     {
-      "id": "2336",
-      "Id_PH33497": 0.8106760662606666,
-      "hoTen_PH33497": "Huy",
-      "ngaySinh_PH333497": "01/02/2002",
-      "hinhAnh_PH33497": "https://picsum.photos/200",
-      "hopDong_PH333497": true,
-      "gioiTinh_PH33497": "Nữ"
+      "id": "86ce",
+      "hoTen": "Ha",
+      "ngaySinh": "02/02/2003",
+      "hinhAnh": "https://media.macphun.com/img/uploads/customer/how-to/608/15542038745ca344e267fb80.28757312.jpg",
+      "hopDong": true,
+      "gioiTinh": "Nam"
     }
   ]
 }
